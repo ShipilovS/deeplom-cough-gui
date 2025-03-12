@@ -14,8 +14,7 @@ import time
 from scipy.io.wavfile import write
 
 
-LABELS = ['Кашель', 'Нет кашля', 'Шум']  
-LABELS = ['VGMU_Coswata_Cutt', 'VGMU_Noise', 'VGMU_Voises_Cutt']
+LABELS = ['Кашель', 'Шум', 'Голоса']  
 # LABELS = ['VGMU_Coswata_Cutt', 'VGMU_Noise', 'VGMU_Voises_Cutt']
 
 
@@ -31,7 +30,7 @@ class AudioRecorder:
         self.is_recording = False
         self.filename = 'output.wav'
         self.sample_rate = 44100
-        self.record_duration = 2 # 1 сек мб
+        self.record_duration = 1 # 1 сек мб
         self.chunk_size = 1024
         self.counter = 1
         self.frames = []
@@ -84,8 +83,8 @@ class AudioRecorder:
                 self.frames.append(data)
                 self.make_prediction(data)
                 
-                # self.counter += 1
-                # self.save_audio_data(data)
+                self.counter += 1
+                self.save_audio_data(data)
 
     def update_plot(self, data):
         # Преобразование в массив NumPy и вычисление FFT
@@ -122,7 +121,7 @@ class AudioRecorder:
         audio_data = (audio_data * 32767).astype(np.int16)
 
         write(f"output-frames_{self.counter}.wav", self.sample_rate, audio_data)
-        print(f"Запись в 1 сохранена в {output_filename}")
+        print(f"Запись сохранена как output-frames_{self.counter}\n")
 
     def make_prediction(self, data):
         audio_segment = data.flatten()

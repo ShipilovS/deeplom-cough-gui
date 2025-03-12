@@ -1,0 +1,133 @@
+Предсказание: Кашель
+Запись сохранена как output-frames_2
+
+Предсказание: Шум
+Запись сохранена как output-frames_3
+
+Предсказание: Кашель
+Запись сохранена как output-frames_4
+
+Предсказание: Шум
+Запись сохранена как output-frames_5
+
+Предсказание: Шум
+Запись сохранена как output-frames_6
+
+Предсказание: Шум
+Запись сохранена как output-frames_7
+
+Предсказание: Шум
+Запись сохранена как output-frames_8
+
+Предсказание: Шум
+Запись сохранена как output-frames_9
+
+Предсказание: Шум
+Запись сохранена как output-frames_10
+
+Предсказание: Шум
+Запись сохранена как output-frames_11
+
+Предсказание: Шум
+Запись сохранена как output-frames_12
+
+Предсказание: Шум
+Запись сохранена как output-frames_13
+
+Предсказание: Шум
+Запись сохранена как output-frames_14
+
+Предсказание: Шум
+Запись сохранена как output-frames_15
+
+Предсказание: Шум
+Запись сохранена как output-frames_16
+
+Предсказание: Шум
+Запись сохранена как output-frames_17
+
+Предсказание: Шум
+Запись сохранена как output-frames_18
+
+Предсказание: Шум
+Запись сохранена как output-frames_19
+
+Предсказание: Шум
+Запись сохранена как output-frames_20
+
+Предсказание: Шум
+Запись сохранена как output-frames_21
+
+Предсказание: Кашель
+Запись сохранена как output-frames_22
+
+Предсказание: Шум
+Запись сохранена как output-frames_23
+
+Предсказание: Шум
+Запись сохранена как output-frames_24
+
+Предсказание: Кашель
+Запись сохранена как output-frames_25
+
+Предсказание: Шум
+Запись сохранена как output-frames_26
+
+Предсказание: Шум
+Запись сохранена как output-frames_27
+
+Предсказание: Шум
+Запись сохранена как output-frames_28
+
+Предсказание: Шум
+Запись сохранена как output-frames_29
+
+Предсказание: Кашель
+Запись сохранена как output-frames_30
+
+Предсказание: Шум
+Запись сохранена как output-frames_31
+
+Предсказание: Шум
+Запись сохранена как output-frames_32
+
+Предсказание: Шум
+Запись сохранена как output-frames_33
+
+
+# ===
+
+
+Файл: output-frames_2.wav - Предсказанный класс: 1 (VGMU_Noise)
+Файл: output-frames_3.wav - Предсказанный класс: 1 (VGMU_Noise)
+Файл: output-frames_4.wav - Предсказанный класс: 0 (VGMU_Coswata_Cutt)
+Файл: output-frames_5.wav - Предсказанный класс: 1 (VGMU_Noise)
+Файл: output-frames_6.wav - Предсказанный класс: 1 (VGMU_Noise)
+Файл: output-frames_7.wav - Предсказанный класс: 1 (VGMU_Noise)
+Файл: output-frames_8.wav - Предсказанный класс: 1 (VGMU_Noise)
+Файл: output-frames_9.wav - Предсказанный класс: 1 (VGMU_Noise)
+Файл: output-frames_10.wav - Предсказанный класс: 1 (VGMU_Noise)
+Файл: output-frames_11.wav - Предсказанный класс: 1 (VGMU_Noise)
+Файл: output-frames_12.wav - Предсказанный класс: 1 (VGMU_Noise)
+Файл: output-frames_13.wav - Предсказанный класс: 0 (VGMU_Coswata_Cutt)
+Файл: output-frames_14.wav - Предсказанный класс: 1 (VGMU_Noise)
+Файл: output-frames_15.wav - Предсказанный класс: 1 (VGMU_Noise)
+Файл: output-frames_16.wav - Предсказанный класс: 1 (VGMU_Noise)
+Файл: output-frames_17.wav - Предсказанный класс: 1 (VGMU_Noise)
+Файл: output-frames_18.wav - Предсказанный класс: 1 (VGMU_Noise)
+Файл: output-frames_19.wav - Предсказанный класс: 1 (VGMU_Noise)
+Файл: output-frames_20.wav - Предсказанный класс: 1 (VGMU_Noise)
+Файл: output-frames_21.wav - Предсказанный класс: 1 (VGMU_Noise)
+Файл: output-frames_22.wav - Предсказанный класс: 0 (VGMU_Coswata_Cutt)
+Файл: output-frames_23.wav - Предсказанный класс: 1 (VGMU_Noise)
+Файл: output-frames_24.wav - Предсказанный класс: 1 (VGMU_Noise)
+Файл: output-frames_25.wav - Предсказанный класс: 1 (VGMU_Noise)
+Файл: output-frames_26.wav - Предсказанный класс: 1 (VGMU_Noise)
+Файл: output-frames_27.wav - Предсказанный класс: 1 (VGMU_Noise)
+Файл: output-frames_28.wav - Предсказанный класс: 1 (VGMU_Noise)
+Файл: output-frames_29.wav - Предсказанный класс: 1 (VGMU_Noise)
+Файл: output-frames_30.wav - Предсказанный класс: 0 (VGMU_Coswata_Cutt)
+Файл: output-frames_31.wav - Предсказанный класс: 1 (VGMU_Noise)
+Файл: output-frames_32.wav - Предсказанный класс: 1 (VGMU_Noise)
+Файл: output-frames_33.wav - Предсказанный класс: 1 (VGMU_Noise)
+Файл: output-frames_34.wav - Предсказанный класс: 1 (VGMU_Noise)

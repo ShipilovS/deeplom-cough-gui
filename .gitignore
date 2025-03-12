@@ -2,6 +2,7 @@ venv/
 venv310
 __pycache__/
 output-frames.wav
+output-frames_*.wav
 output.wav
 VGMU_Voises_Cutt
 VGMU_Noise
