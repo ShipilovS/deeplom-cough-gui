@@ -8,15 +8,24 @@ import sounddevice as sd
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import threading
-import librosa
-# Загрузите вашу модель
+import librosa, signal
+import time
 # model = load_model('cough_detection_model-37.h5')
 from scipy.io.wavfile import write
+
+
+LABELS = ['Кашель', 'Нет кашля', 'Шум']  
+# LABELS = ['VGMU_Coswata_Cutt', 'VGMU_Noise', 'VGMU_Voises_Cutt']
+
 
 class AudioRecorder:
     def __init__(self, master):
         self.master = master
         self.master.title("Audio Recorder")
+
+        print(f"Загрузка модели")
+
+        self.model = load_model('cough_detection_model-37.h5')
 
         self.is_recording = False
         self.filename = 'output.wav'
@@ -46,23 +55,30 @@ class AudioRecorder:
         self.fft_data = []
         self.fft_line, = self.ax.plot([], [], lw=2, color='red')
 
+        signal.signal(signal.SIGINT, self.handle_exit)
+
+    def handle_exit(self, signum, frame):
+        print("Получен сигнал завершения. Остановка записи...")
+        self.stop_recording()
+        self.master.quit()
+
     def start_recording(self):
         self.is_recording = True
         self.record_button.config(state=tk.DISABLED)
         self.stop_button.config(state=tk.NORMAL)
 
-        self.frames = []
         self.thread = threading.Thread(target=self.record)
         self.thread.start()
 
     def record(self):
         print("* recording")
         with sd.InputStream(samplerate=self.sample_rate, channels=1, dtype='float32') as stream:
+            print('Записываю')
             while self.is_recording:
-                print('Записываю')
                 data = stream.read(1024)[0]
-                self.frames.append(data)
                 self.update_plot(data)
+                # self.frames.append(data)
+                self.make_prediction(data)
 
     def update_plot(self, data):
         # Преобразование в массив NumPy и вычисление FFT
@@ -80,25 +96,7 @@ class AudioRecorder:
         self.is_recording = False
         self.record_button.config(state=tk.NORMAL)
         self.stop_button.config(state=tk.DISABLED)
-
-        # Сохранение в файл
         self.save_audio()
-
-    # def save_audio(self):
-        # output_filename = "output-frames.wav"
-        # with open(output_filename, 'wb') as wf:
-        #     print(self.frames)
-        #     wf.write(b''.join(self.frames))
-        # print(f"Запись сохранена в {output_filename}")
-
-    # def save_recording(self):
-    #     with wave.open(self.filename, 'wb') as wf:
-    #         wf.setnchannels(1)
-    #         wf.setsampwidth(2)  # 2 байта для int16
-    #         wf.setframerate(self.sample_rate)
-    #         wf.writeframes(b''.join(self.frames))
-
-    #     print(f"Запись сохранена в {self.filename}")
 
     def save_audio(self):
         output_filename = "output-frames.wav"
@@ -109,8 +107,20 @@ class AudioRecorder:
         audio_data = (audio_data * 32767).astype(np.int16)
 
         # Сохранение в WAV файл
-        write(output_filename, self.sample_rate, audio_data)  # Используем write из scipy
+        write(output_filename, self.sample_rate, audio_data)
         print(f"Запись сохранена в {output_filename}")
+
+    def make_prediction(self, data):
+        audio_segment = data.flatten()
+
+        mfccs = librosa.feature.mfcc(y=audio_segment, sr=self.sample_rate, n_mfcc=13, n_fft=1024)
+        
+        mfccs = mfccs[:, 0].reshape(1, 1, 13, 1)
+
+        prediction = self.model.predict(mfccs)
+        predicted_label = LABELS[np.argmax(prediction)] 
+
+        print(f"Предсказание: {predicted_label}")
 
 if __name__ == "__main__":
     root = tk.Tk()
