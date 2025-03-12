@@ -77,7 +77,7 @@ class AudioRecorder:
             while self.is_recording:
                 data = stream.read(1024)[0]
                 self.update_plot(data)
-                # self.frames.append(data)
+                self.frames.append(data)
                 self.make_prediction(data)
 
     def update_plot(self, data):
