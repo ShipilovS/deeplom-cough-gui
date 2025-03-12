@@ -16,7 +16,7 @@ def extract_features(file_path):
 # Укажите путь к вашему тестовому аудиофайлу
 # test_file_path = './VGMU_Coswata_Cutt/8cough-heavy.wav' 
 # test_file_path = './VGMU_Noise/1-977-A-39.wav'
-test_file_path = './output-frames.wav'
+test_file_path = './output-frames_7.wav'
 
 features = extract_features(test_file_path)
 

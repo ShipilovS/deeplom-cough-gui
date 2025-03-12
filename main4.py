@@ -31,8 +31,9 @@ class AudioRecorder:
         self.is_recording = False
         self.filename = 'output.wav'
         self.sample_rate = 44100
-        self.record_duration = 0.5
+        self.record_duration = 2 # 1 сек мб
         self.chunk_size = 1024
+        self.counter = 1
         self.frames = []
 
         # Кнопки
@@ -82,6 +83,9 @@ class AudioRecorder:
                 self.update_plot(data)
                 self.frames.append(data)
                 self.make_prediction(data)
+                
+                # self.counter += 1
+                # self.save_audio_data(data)
 
     def update_plot(self, data):
         # Преобразование в массив NumPy и вычисление FFT
@@ -110,10 +114,21 @@ class AudioRecorder:
         write(output_filename, self.sample_rate, audio_data)
         print(f"Запись сохранена в {output_filename}")
 
+
+    def save_audio_data(self, data):
+        output_filename = "output-frames.wav"
+        audio_data = data
+        
+        audio_data = (audio_data * 32767).astype(np.int16)
+
+        write(f"output-frames_{self.counter}.wav", self.sample_rate, audio_data)
+        print(f"Запись в 1 сохранена в {output_filename}")
+
     def make_prediction(self, data):
         audio_segment = data.flatten()
 
-        mfccs = librosa.feature.mfcc(y=audio_segment, sr=self.sample_rate, n_mfcc=13, n_fft=self.chunk_size)
+        # mfccs = librosa.feature.mfcc(y=audio_segment, sr=self.sample_rate, n_mfcc=13, n_fft=self.chunk_size)
+        mfccs = librosa.feature.mfcc(y=audio_segment, sr=self.sample_rate, n_mfcc=13, n_fft=int(self.sample_rate * self.record_duration))
         
         mfccs = mfccs[:, 0].reshape(1, 1, 13, 1)
 
