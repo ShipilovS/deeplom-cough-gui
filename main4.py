@@ -1,10 +1,10 @@
 # python3 -m pip install numpy
 # python3 main4.py
+from keras.models import load_model
 import tkinter as tk
 import numpy as np
 import wave
 import sounddevice as sd
-
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import threading

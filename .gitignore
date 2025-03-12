@@ -1,4 +1,4 @@
-venv
+venv/
 venv310
 __pycache__/
 output-frames.wav
