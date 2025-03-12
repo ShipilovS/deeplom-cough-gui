@@ -15,6 +15,7 @@ from scipy.io.wavfile import write
 
 
 LABELS = ['Кашель', 'Нет кашля', 'Шум']  
+LABELS = ['VGMU_Coswata_Cutt', 'VGMU_Noise', 'VGMU_Voises_Cutt']
 # LABELS = ['VGMU_Coswata_Cutt', 'VGMU_Noise', 'VGMU_Voises_Cutt']
 
 
@@ -30,7 +31,8 @@ class AudioRecorder:
         self.is_recording = False
         self.filename = 'output.wav'
         self.sample_rate = 44100
-        self.duration = 5  # Длительность записи в секундах
+        self.record_duration = 0.5
+        self.chunk_size = 1024
         self.frames = []
 
         # Кнопки
@@ -75,7 +77,8 @@ class AudioRecorder:
         with sd.InputStream(samplerate=self.sample_rate, channels=1, dtype='float32') as stream:
             print('Записываю')
             while self.is_recording:
-                data = stream.read(1024)[0]
+                # data = stream.read(self.chunk_size)[0]
+                data = stream.read(int(self.sample_rate * self.record_duration))[0]
                 self.update_plot(data)
                 self.frames.append(data)
                 self.make_prediction(data)
@@ -100,20 +103,17 @@ class AudioRecorder:
 
     def save_audio(self):
         output_filename = "output-frames.wav"
-        # Преобразование данных в одномерный массив
-        audio_data = np.concatenate(self.frames).flatten()  # Объединяем и делаем одномерным массивом
+        audio_data = np.concatenate(self.frames).flatten() 
         
-        # Преобразование в формат int16
         audio_data = (audio_data * 32767).astype(np.int16)
 
-        # Сохранение в WAV файл
         write(output_filename, self.sample_rate, audio_data)
         print(f"Запись сохранена в {output_filename}")
 
     def make_prediction(self, data):
         audio_segment = data.flatten()
 
-        mfccs = librosa.feature.mfcc(y=audio_segment, sr=self.sample_rate, n_mfcc=13, n_fft=1024)
+        mfccs = librosa.feature.mfcc(y=audio_segment, sr=self.sample_rate, n_mfcc=13, n_fft=self.chunk_size)
         
         mfccs = mfccs[:, 0].reshape(1, 1, 13, 1)
 
