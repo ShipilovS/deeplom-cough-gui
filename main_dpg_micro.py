@@ -5,6 +5,7 @@ import numpy as np
 import threading
 import queue
 import librosa
+from scipy.io.wavfile import write
 import soundfile as sf
 
 LABELS = ['Cough', 'Noise', 'Voices']
@@ -15,10 +16,10 @@ class AudioPlotter:
         self.audio_data = np.zeros((0,))  # Массив для хранения аудиоданных
         self.data_queue = queue.Queue()  # Очередь для передачи данных между потоками
         self.recording = False  # Флаг записи
-        self.display_interval = 1.5
-        
-        self.chunk_size = 4096
-        # self.chunk_size = int(self.sample_rate)
+        self.display_interval = 1
+        self.counter = 1
+        # self.chunk_size = self.sample_rate
+        self.chunk_size = int(self.sample_rate * self.display_interval)
         print(self.chunk_size)
         
         # Создание потока для захвата аудиосигнала
@@ -42,6 +43,9 @@ class AudioPlotter:
             self.audio_data = np.append(self.audio_data, indata.flatten())  # Сохраняем данные в массив
             self.data_queue.put(indata.flatten())  # Помещаем данные в очередь
             self.make_prediction(indata)  # Выполняем предсказание
+            self.counter += 1
+            # print(len(indata.flatten()))
+            self.save_audio_data(indata.flatten())
 
     def update_plot(self):
         while True:
@@ -75,6 +79,15 @@ class AudioPlotter:
         dpg.show_viewport()
         dpg.start_dearpygui()
         dpg.destroy_context()
+
+    def save_audio_data(self, data):
+        output_filename = "output-frames.wav"
+        audio_data = data
+        
+        audio_data = (audio_data * 32767).astype(np.int16)
+
+        write(f"output-frames_{self.counter}.wav", self.sample_rate, audio_data)
+        print(f"Запись сохранена как output-frames_{self.counter}\n")
 
     def start_recording(self):
         print('Start recording')
