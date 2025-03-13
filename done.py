@@ -42,7 +42,6 @@ class AudioPlotter:
         while True:
             if not self.data_queue.empty():
                 audio_data = self.data_queue.get()
-                print(audio_data)
                 # Обновляем график
                 dpg.set_value("audio_plot_y", audio_data)
 

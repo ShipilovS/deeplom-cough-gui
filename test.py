@@ -6,7 +6,7 @@ from tensorflow.keras.models import load_model
 LABELS = ['VGMU_Coswata_Cutt', 'VGMU_Noise', 'VGMU_Voises_Cutt']
 
 # Загрузка модели
-model = load_model('cough_detection_model-37.h5')
+model = load_model('cough_detection_model-37_13_03.h5')
 
 def extract_features(file_path):
     audio, sample_rate = librosa.load(file_path, sr=None)
@@ -16,15 +16,15 @@ def extract_features(file_path):
 
 
 # # или так
-# test_file_path = './VGMU_Coswata_Cutt/8cough-heavy.wav' 
-# test_file_path = './VGMU_Noise/1-977-A-39.wav'
-# test_file_path = './output-frames_5.wav'
-# # test_file_path = '/home/sshipilov/Загрузки/Telegram Desktop/data_deeplom/VGMU_Coswata_Cutt/8cough-heavy.wav'
-# features = extract_features(test_file_path)
-# features = features.reshape(1, 1, 13, 1) 
-# predictions = model.predict(features)
-# predicted_class = np.argmax(predictions)
-# print(f"Предсказанный класс: {predicted_class} ({LABELS[predicted_class]})")
+test_file_path = './VGMU_Coswata_Cutt/8cough-heavy.wav' 
+test_file_path = './VGMU_Noise/1-977-A-39.wav'
+test_file_path = './voiseoutput_1.wav'
+# test_file_path = '/home/sshipilov/Загрузки/Telegram Desktop/data_deeplom/VGMU_Coswata_Cutt/8cough-heavy.wav'
+features = extract_features(test_file_path)
+features = features.reshape(1, 1, 13, 1) 
+predictions = model.predict(features)
+predicted_class = np.argmax(predictions)
+print(f"Предсказанный класс: {predicted_class} ({LABELS[predicted_class]})")
 
 folder_path = '.'  # Текущая директория
 

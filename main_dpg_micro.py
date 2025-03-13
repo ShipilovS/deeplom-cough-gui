@@ -44,9 +44,9 @@ class AudioPlotter:
             self.audio_data = np.append(self.audio_data, indata.flatten())  # Сохраняем данные в массив
             self.data_queue.put(indata.flatten())  # Помещаем данные в очередь
             self.make_prediction(indata)  # Выполняем предсказание
-            self.counter += 1
-            # print(len(indata.flatten()))
-            # self.save_audio_data(indata.flatten())
+            # раскомментить, если нужно зписать аудио по секунде
+            # self.counter += 1
+            # self.save_audio_data(indata)
 
     def update_plot(self):
         while True:
@@ -103,13 +103,19 @@ class AudioPlotter:
 
     def make_prediction(self, data):
         audio_segment = data.flatten()
+        print(len(audio_segment))
         try:
-            mfccs = librosa.feature.mfcc(y=audio_segment, sr=self.sample_rate, n_mfcc=13,
-                                         n_fft=int(self.chunk_size))
-            print(len(mfccs))
-            mfccs = mfccs[:, 0].reshape(1, 1, 13, 1)
+            mfccs = librosa.feature.mfcc(y=audio_segment, sr=self.sample_rate, n_mfcc=13) # n_fft=int(self.chunk_size)
 
-            prediction = self.model.predict(mfccs)
+            # audio, sample_rate = librosa.load('output-frames_12.wav', sr=None)
+            # print(sample_rate)
+            # print(self.sample_rate)
+            # mfccs = librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13)
+
+            mfccs_mean = np.mean(mfccs.T, axis=0)
+            mfccs_reshaped = mfccs_mean.reshape(1, 1, 13, 1)
+            prediction = self.model.predict(mfccs_reshaped)
+            # print(mfccs_reshaped)
             predicted_label = LABELS[np.argmax(prediction)]
             print(predicted_label)
             dpg.set_value("prediction_label", f"Prediction: {predicted_label}")
