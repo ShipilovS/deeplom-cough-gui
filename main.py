@@ -25,7 +25,7 @@ class AudioRecorder:
 
         print(f"Загрузка модели")
 
-        self.model = load_model('cough_detection_model-37.h5')
+        self.model = load_model('cough_detection_model-37_13_03.h5')
 
         self.is_recording = False
         self.filename = 'output.wav'
@@ -126,16 +126,23 @@ class AudioRecorder:
 
     def make_prediction(self, data):
         audio_segment = data.flatten()
+        try:
+            mfccs = librosa.feature.mfcc(y=audio_segment, sr=self.sample_rate, n_mfcc=13) # n_fft=int(self.chunk_size)
 
-        # mfccs = librosa.feature.mfcc(y=audio_segment, sr=self.sample_rate, n_mfcc=13, n_fft=self.chunk_size)
-        mfccs = librosa.feature.mfcc(y=audio_segment, sr=self.sample_rate, n_mfcc=13, n_fft=int(self.sample_rate * self.record_duration))
-        
-        mfccs = mfccs[:, 0].reshape(1, 1, 13, 1)
+            # audio, sample_rate = librosa.load('output-frames_12.wav', sr=None)
+            # print(sample_rate)
+            # print(self.sample_rate)
+            # mfccs = librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13)
 
-        prediction = self.model.predict(mfccs)
-        predicted_label = LABELS[np.argmax(prediction)] 
+            mfccs_mean = np.mean(mfccs.T, axis=0)
+            mfccs_reshaped = mfccs_mean.reshape(1, 1, 13, 1)
+            prediction = self.model.predict(mfccs_reshaped)
+            # print(mfccs_reshaped)
+            predicted_label = LABELS[np.argmax(prediction)]
+            print(predicted_label)
 
-        print(f"Предсказание: {predicted_label}")
+        except Exception as e:
+            print(f"Ошибка при предсказании: {e}")
 
 if __name__ == "__main__":
     root = tk.Tk()
