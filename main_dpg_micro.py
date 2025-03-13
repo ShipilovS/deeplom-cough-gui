@@ -28,7 +28,7 @@ class AudioPlotter:
                                       channels=1,
                                       callback=self.audio_callback,
                                       blocksize=self.chunk_size)
-        self.model = load_model('cough_detection_model-37.h5')
+        self.model = load_model('cough_detection_model-37_13_03.h5')
         
         # Инициализация интерфейса
         self.setup_gui()
