@@ -31,7 +31,8 @@ class AudioRecorder:
         self.filename = 'output.wav'
         self.sample_rate = 44100
         self.record_duration = 1 # 1 сек мб
-        self.chunk_size = 1024
+        # self.chunk_size = 1024
+        self.chunk_size = self.sample_rate
         self.counter = 1
         self.frames = []
 

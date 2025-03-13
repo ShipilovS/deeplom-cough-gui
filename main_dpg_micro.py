@@ -18,6 +18,7 @@ class AudioPlotter:
         self.recording = False  # Флаг записи
         self.display_interval = 1
         self.counter = 1
+        # self.chunk_size = 1024
         # self.chunk_size = self.sample_rate
         self.chunk_size = int(self.sample_rate * self.display_interval)
         print(self.chunk_size)
@@ -45,7 +46,7 @@ class AudioPlotter:
             self.make_prediction(indata)  # Выполняем предсказание
             self.counter += 1
             # print(len(indata.flatten()))
-            self.save_audio_data(indata.flatten())
+            # self.save_audio_data(indata.flatten())
 
     def update_plot(self):
         while True:
