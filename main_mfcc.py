@@ -21,7 +21,7 @@ class AudioRecorder:
 
         # Параметры для извлечения признаков (должны соответствовать обучению модели)
         self.sample_rate = 44100
-        self.n_mfcc = 13
+        self.n_mfcc = 25
         self.frame_length = 1024
         self.frame_step = 512
         self.num_mel_bins = 40
