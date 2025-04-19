@@ -8,18 +8,19 @@ data = {
         'Сверточная сеть без обработки', 
         'Сверточная сеть с MFCC=13',
         'Сверточная сеть с MFCC=25',
+        'Сверточная сеть с MFCC=30',
         'Сверточная сеть с MFCC=40'
     ],
-    'Training Accuracy': [0.8412, 0.8695, 0.8947, 0.9117],
-    'Validation Accuracy': [0.8297, 0.8760, 0.9141, 0.9343],
-    'Training Loss': [None, None, 0.4412, 0.4476],
-    'Validation Loss': [None, None, 0.3977, 0.3849]
+    'Training Accuracy': [0.8412, 0.8695, 0.8947, 0.9173, 0.9117],
+    'Validation Accuracy': [0.8297, 0.8760, 0.9141, 0.9377, 0.9343],
+    'Training Loss': [None, None, 0.4412, 0.3894, 0.4476],
+    'Validation Loss': [None, None, 0.3977, 0.3229, 0.3849]
 }
 
 df = pd.DataFrame(data)
 
 # Создаем фигуру с улучшенным дизайном
-plt.figure(figsize=(12, 7), facecolor='#f5f5f5')
+plt.figure(figsize=(13, 7), facecolor='#f5f5f5')
 ax = plt.gca()
 ax.set_facecolor('#f5f5f5')
 
@@ -43,7 +44,6 @@ bars_val = plt.bar(index + bar_width, df['Validation Accuracy'], bar_width,
                    edgecolor='white', linewidth=1, alpha=0.9)
 
 # Настройка осей и заголовка
-# plt.xlabel('Модель', fontsize=12, labelpad=10)
 plt.ylabel('Точность', fontsize=12, labelpad=10)
 plt.xticks(index + bar_width/2, df['Model'], rotation=15, ha='right', fontsize=10)
 plt.ylim(0.7, 1.0)
